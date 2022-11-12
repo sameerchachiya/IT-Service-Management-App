@@ -1,0 +1,86 @@
+<%#  ADDING VALIDATIONS %>
+<script type="text/javascript">
+  function validate(){
+    var dName = $("#employee_name").val();
+    var dPhone = $('#employee_phone').val();
+    var dEmail = $('#employee_email').val();
+    var dPassword = $('#employee_password').val();
+    if (dEmail.trim() == "" && dPhone.trim() == "" && dName.trim() == "" && dPassword.trim() == "") {
+      $("#dkey_div").text("Please fill all the required fields").css("color", "red" );
+      event.preventDefault();
+    }
+    else if (dName.trim() == "") {
+      $("#dkey_div").text("Name cannot be blank").css("color", "red" );
+      event.preventDefault();
+    }
+    else if (dPhone.trim() == "" ) {
+      $("#dkey_div").text("Phone cannot be blank").css("color", "red" );
+      event.preventDefault();
+    }
+    else if (dEmail.trim() == "") {
+      $("#dkey_div").text("Email cannot be blank").css("color", "red" );
+      event.preventDefault();
+    }
+    else if (dPassword.trim() == "") {
+      $("#dkey_div").text("Password cannot be blank").css("color", "red" );
+      event.preventDefault();
+    }
+    else {
+      $("#dkey_div").text("");
+    }
+  }
+</script>
+ 
+
+<%= form_with(model: employee, local: true) do |form| %>
+  <%# VALIDATION BLOCK%>
+  <div class="errors-style btn btn-light btn-sm" id="dkey_div" >  </div>
+  
+  <div class="form-group row">
+    <%= form.label :name,class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :name , required: true%>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :phone,class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :phone , required: true%>
+    </div>
+  </div> 
+
+ 
+  <div class="form-group row">
+      <%= form.hidden_field :designation_id, :value => 2 %>
+  </div> 
+
+
+  <div class="form-group row">
+    <%= form.label :Email,class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= email_field_tag 'employee[email]' %>
+    </div>
+  </div> 
+
+   <div class="form-group row">
+    <%= form.label :Password,class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= password_field_tag 'employee[password]'%>
+    </div>
+  </div> 
+
+  <br />
+
+  <div class='form-group'>
+    <div class="align-left">
+      <h5 align="left"><%= form.submit class:"btn btn-dark", onclick:"validate();" %></h5></button>
+    </div>
+  <div class="align">
+    <div >&nbsp;
+    <%= link_to 'Back', employees_path , class:"btn btn-primary"%>
+  </div>
+  </div>
+</div>
+<% end %>
+

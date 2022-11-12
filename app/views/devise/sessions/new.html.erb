@@ -1,0 +1,32 @@
+<div align= "center" class="card">
+  <div align= "center" class="card">
+  <div class="card-header"><h2> Please login below with your credentials</h2></div>
+  <div class="card-body">
+  <% flash.each do |type, msg| %>
+  <% if msg != "Signed out successfully." %>
+    <div class="btn btn-danger btn-sm">
+      <%= msg %>
+    </div>
+  <% end %>
+  </div>
+  <% end %>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <%= f.email_field :email, placeholder:"Email", autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <br/>
+  
+  <div class="field">
+    <%= f.password_field :password, placeholder:"Password", autocomplete: "current-password" %>
+  </div>
+  <br/>
+
+  <div class="actions">
+    <%= f.submit "Log in", class:"w3-item btn btn-primary" %>
+  </div>
+  <br />
+<% end %>
+
+ 

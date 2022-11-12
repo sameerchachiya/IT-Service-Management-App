@@ -1,0 +1,68 @@
+<script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+	</script>
+
+<style>
+.align-left{
+   float: left;
+ }
+
+.align-right{
+   float: right;
+ }
+ </style>
+
+ 
+
+<div class='container'>
+  <div class="align-left">
+    <h5 align="left">
+     
+    </h5></button>
+
+  </div>
+<div class="align-right">
+  <div align="right">
+  <input type="text" id="gfg" placeholder="Search here..." title="Type in a name" >
+</div>
+</div>
+</div>
+
+<table class="table table-hover table-grey">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Type</th>
+      <th scope="col">Description</th>
+      <th scope="col">Status</th>
+      <th scope="col" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody id="geeks">
+    <% @tickets.each do |ticket| %>
+      <tr>
+        <td><%= ticket.id %></td>
+        <td><%= ticket.kind %></td>
+        <td><%= ticket.description %></td>
+        <td><%= ticket.tstatus.status %></td>
+        <td><%= link_to 'Status', ticket ,class:"btn btn-secondary btn-sm" %></td>
+      </tr>
+    <% end %>
+  <%# FUCNTIONTO SEARCH AN ELEMENT IN THE TABLE %>
+    <script>
+			$(document).ready(function() {
+				$("#gfg").on("keyup", function() {
+					var value = $(this).val().toLowerCase();
+					$("#geeks tr").filter(function() {
+						$(this).toggle($(this).text()
+						.toLowerCase().indexOf(value) > -1)
+					});
+				});
+			});
+      
+		</script>
+  </tbody>
+</table>
+
+

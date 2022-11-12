@@ -1,0 +1,58 @@
+<div class="w3-mid">
+  <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+    <%= link_to 'Tickets', tickets_path, class:"w3-bar-item w3-button w3-left"%>
+    <%= link_to 'Employees', employees_path, class:"btn btn-primary" %>
+</div>
+
+<br />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+</script>
+
+<div class='container'>
+  <div class="align-left">
+    <h5 align="left">
+    <%= link_to 'Signup an Employee', new_employee_path, class:"btn btn-secondary align-left" %>
+    </h5></button>
+  </div>
+  <div class="align-right">
+    <div align="right">
+    <input type="text" id="gfg" placeholder="Search here..." title="Type in a name" >
+  </div>
+</div>
+</div>
+
+<table class="table table-hover table-grey">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Designation</th>
+      <th scope="col"colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody id="geeks">
+    <% @employees.each do |employee| %>
+      <tr>
+        <td><%= employee.name %></td>
+        <td><%= employee.phone %></td>
+        <td><%= employee.designation.role %></td>
+       <td><%= link_to 'Show', employee ,class:"btn btn-secondary btn-sm" %></td>
+      </tr>
+    <% end %>
+<%# JS to Add the search functionality  %>      
+<script>
+			$(document).ready(function() {
+				$("#gfg").on("keyup", function() {
+					var value = $(this).val().toLowerCase();
+					$("#geeks tr").filter(function() {
+						$(this).toggle($(this).text()
+						.toLowerCase().indexOf(value) > -1)
+					});
+				});
+			});
+		</script>
+  </tbody>
+</table>
+
+<br>

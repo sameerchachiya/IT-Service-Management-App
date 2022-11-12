@@ -1,0 +1,74 @@
+<%# Patch request to update the ticket service_id and tstatus_id%>
+<script>
+function updateTicket(id){
+  const sid = document.querySelector("#ticket_service_id").value;
+  const tid = document.querySelector('#ticket_tstatus_id').value;
+  
+  requestOptions = {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' }, 
+    body: JSON.stringify({ticket: {service_id: sid, tstatus_id: tid}}),
+    mode: 'same-origin'
+  }
+  debugger
+  fetch(`/tickets/${id}`, requestOptions)
+  .then(function(response) {
+    if (!response.ok) { 
+      console.log(response.statusText)
+    }
+  })
+}
+</script>
+
+<div class="card text-center">
+  <div class="card-body">
+  <p class="card-title">
+    <p>
+      <strong>Type:</strong>
+      <%= @ticket.kind %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= @ticket.description %>
+    </p>
+
+    <p>
+      <strong>Status:</strong>
+      <%= @ticket.tstatus.status %>
+    </p>
+
+    <p>
+      <strong>Logged By:</strong>
+      <%= @ticket.service.status  %>
+    </p>
+  </p>
+
+  <%= form_with(model:@ticket, id: tickets_url(@ticket) ) do |t| %>
+      <%= t.select :service_id , [["SERVICE ENGINEER I", 1], ["SERVICE ENGINEER II", 2], ["SERVICE ENGINEER III", 3]]  %>
+      <%= t.select :tstatus_id, [["ASSIGNED", 2], ["CLOSED", 5]] %>
+      <button class="btn btn-danger btn-sm" id= "first" onClick='updateTicket(<%= @ticket.id%>)'>Update</button>
+  <% end %>
+
+  <div align="right">
+    <%= link_to 'BACK', tickets_path, class:"btn btn-primary btn-sm" %>
+  </div>
+ </div>
+</div>
+
+<%# Refresh the page %>
+<script type='text/javascript'>
+(function()
+{
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem('firstLoad') )
+    {
+      localStorage['firstLoad'] = true;
+      window.location.reload();
+    }  
+    else
+      localStorage.removeItem('firstLoad');
+  }
+})();
+</script>

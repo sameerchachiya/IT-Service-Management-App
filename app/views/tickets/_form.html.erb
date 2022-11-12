@@ -1,0 +1,42 @@
+
+<%= form_with(model: ticket, local: true) do |form| %>
+  <% if ticket.errors.any? %>
+    <div id="error_explanation">
+      <% ticket.errors.full_messages.each do |message| %>
+      <div class="btn btn-danger btn-sm">
+      <%= message %>
+    </div>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%# VALIDATION BLOCK%>
+  <div class="errors-style btn btn-light btn-sm" id="dkey_div" ></div>
+
+  <div class="form-group row">
+    <%= form.label :type,class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.select :kind, ["HARDWARE", "SOFTWARE", "OTHER"], class:"form-check"%>
+    </div>
+  </div>
+
+   <div class="form-group row">
+    <%= form.label :Description,class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_area :description, :cols => 30, :rows => 5%>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <div class="align-left">
+      <h5 align="left">
+      <%= form.submit class:"btn btn-dark"%></h5></button>
+    </div>
+  <div class="align">
+    <div >&nbsp;
+    <%= link_to 'Back', landing_path , class:"btn btn-primary"%>
+    </div>
+  </div>
+</div>
+<% end %>

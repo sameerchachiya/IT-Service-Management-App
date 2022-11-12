@@ -1,0 +1,30 @@
+<div class="card text-center">
+  <div class="card-body">
+
+  <p class="card-title">
+
+    <p>
+      <strong>Name:</strong>
+      <%= @employee.name %>
+    </p>
+
+    <p>
+      <strong>Phone:</strong>
+      <%= @employee.phone %>
+    </p>
+
+    <p>
+      <strong>Designation:</strong>
+      <%= @employee.designation.role %>
+    </p>
+
+    <p>
+      <strong>Email:</strong>
+      <%= @employee.user.email %>
+    </p>
+
+    <div align="right">
+        <%= link_to 'BACK', employees_path, class:"btn btn-primary btn-sm" %>
+    </div>
+  </p>
+</div>

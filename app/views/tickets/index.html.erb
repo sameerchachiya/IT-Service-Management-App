@@ -1,0 +1,51 @@
+<div class="w3-mid">
+  <div class="w3-bar w3-white w3-padding w3-card " style="letter-spacing:4px;">
+    <%= link_to 'Tickets', tickets_path, class:"btn btn-primary "%>
+    <%= link_to 'Employees', employees_path, class:"w3-bar-item w3-button w3-center" %>
+    <br />
+  </div>
+<br />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<div align="right">
+  <input type="text" id="gfg" placeholder="Search here..." title="Type in a name" >
+
+<table class="table table-hover table-grey">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Type</th>
+      <th scope="col">Description</th>
+      <th scope="col">Status</th>
+      <th scope="col">Logged By</th>
+      <th scope="col">Assigned to</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody id="geeks">
+    <% @tickets.each do |ticket| %>
+      <tr>
+        <td><%= ticket.id %></td>
+        <td><%= ticket.kind %></td>
+        <td><%= ticket.description %></td>
+        <td><%= ticket.tstatus.status %></td>
+        <td><%= ticket.employee.name %></td>
+        <td><%= ticket.service.status %></td>
+        <td><%= link_to 'Assign', "#{assign_path}/#{ticket.id}" ,class:"btn btn-secondary btn-sm" %></td>
+      </tr>
+    <% end %>
+    <%# fucntion to search an element in the table %>
+    <script>
+			$(document).ready(function() {
+				$("#gfg").on("keyup", function() {
+					var value = $(this).val().toLowerCase();
+					$("#geeks tr").filter(function() {
+						$(this).toggle($(this).text()
+						.toLowerCase().indexOf(value) > -1)
+					});
+				});
+			});
+		</script>
+  </tbody>
+</table>
+<br>

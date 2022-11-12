@@ -1,0 +1,74 @@
+<script>
+function updateTicket(id){
+  const tid = document.querySelector('#ticket_tstatus_id').value;
+  requestOptions = {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' }, 
+    body: JSON.stringify({ticket: {tstatus_id: tid}}),
+    mode: 'same-origin'
+  }
+  fetch(`/tickets/${id}`, requestOptions)
+  .then(function(response) {
+    if (!response.ok) { 
+      console.log(response.statusText)
+    }
+  })
+}
+</script>
+
+<div class="card text-center">
+<div class="card-body">
+<p class="card-title">
+  <p>
+    <strong>Type:</strong>
+    <%= @ticket.kind %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @ticket.description %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= @ticket.tstatus.status %>
+  </p>
+
+  <p>
+    <% if current_user.employee.designation.role == "SE"%> 
+      <strong>Logged By:</strong>
+      <%= @ticket.employee.name %>
+    <% end%>
+  </p>
+  <p>
+  <%= form_with(model:@ticket, id: tickets_url(@ticket) ) do |t| %>
+    <% if current_user.employee.designation.role == "SE" %>
+      <%= t.select :tstatus_id, [["IN-PROGRESS", 3], ["COMPLETED", 4]],{}%> 
+      <button class="btn btn-danger btn-sm" id= "first" onClick='updateTicket(<%= @ticket.id%>)'>Update</button>
+    <% end %>
+  <% end%>
+  </p>
+
+<div align="right">
+    <%= link_to 'Back', slanding_path, class:"btn btn-primary btn-sm" if current_user.employee.designation.role == "SE" %>
+    <%= link_to 'Back', landing_path, class:"btn btn-primary btn-sm " if current_user.employee.designation.role == "SDE" %>
+  </div>
+</div>
+
+<script type='text/javascript'>
+
+(function()
+{
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem('firstLoad') )
+    {
+      localStorage['firstLoad'] = true;
+      window.location.reload();
+    }  
+    else
+      localStorage.removeItem('firstLoad');
+  }
+})();
+
+</script>
