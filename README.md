@@ -19,9 +19,6 @@ Employee can Login but not register onto the portal and is able to log a ticket.
 Service Engineer can resolve the assigned issue and update the status.
 This thus provides a Administration overview of the App.
 
-Dev Academy Project Statement JIRA Link
-
-https://jira2.cerner.com/browse/DEVACDMY-37197
 =======
 
 # Technology Stack :
